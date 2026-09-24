@@ -20,9 +20,11 @@
     "cli": "node src/cli/index.js",
     "preview": "node scripts/preview.js",
     "icons": "node scripts/make-icons.js",
-    "pack": "electron-builder --win --dir",
-    "dist": "electron-builder --win",
-    "release": "electron-builder --win --publish never"
+    "pack": "electron-builder --win --dir --config.win.signAndEditExecutable=false",
+    "brand": "node scripts/brand-exe.js",
+    "dist": "npm run pack && npm run brand && electron-builder --win nsis portable --prepackaged release/win-unpacked",
+    "package:cli": "node scripts/make-cli-package.js",
+    "release": "npm run dist && npm run package:cli"
   },
   "dependencies": {
     "nodemailer": "^6.9.16"

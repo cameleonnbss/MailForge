@@ -8,9 +8,9 @@
 
 | Fichier | Taille | Pour qui |
 |---|---|---|
-| `MailForge-Setup-1.0.0.exe` | ~85 Mo | Installation classique : dossier au choix, raccourci, desinstallation propre |
-| `MailForge-1.0.0-portable.exe` | ~85 Mo | Aucune installation, execution directe depuis une cle ou un dossier |
-| `MailForge-1.0.0-cli.zip` | ~1 Mo | Version ligne de commande seule (Node >= 18), sans interface |
+| `MailForge-Setup-1.0.0.exe` | 81,9 Mo | Installation classique : dossier au choix, raccourci, desinstallation propre |
+| `MailForge-1.0.0-portable.exe` | 81,7 Mo | Aucune installation, execution directe depuis une cle ou un dossier |
+| `MailForge-1.0.0-cli.zip` | 48 Ko | Version ligne de commande seule (Node >= 18), sans interface |
 
 > Windows 10/11 x64. Aucun runtime a installer : la version installeur et la version portable embarquent tout.
 
@@ -70,8 +70,12 @@ npm run dist     # genere release/MailForge-Setup-1.0.0.exe
 
 ## Verifications de cette version
 
-- `npm run smoke` : 12 controles automatises sans fenetre visible — chargement de l'interface, aller-retour du stockage, chiffrement des secrets, outils, analyse d'en-tetes, enregistrement des 57 canaux IPC.
-- Interface parcourue vue par vue : dashboard, compositeur, campagne, boites temporaires, redaction IA, outils, modeles, snippets, historique, journaux, parametres (6 onglets).
+- `npm run smoke` : 12 controles automatises sans fenetre visible — chargement de l'interface, aller-retour du stockage, chiffrement des secrets (AES-256-GCM), outils, analyse d'en-tetes (decodage RFC 2047 compris), enregistrement des 57 canaux IPC.
+- Le meme auto-test relance **sur le binaire compile** (`release/win-unpacked/MailForge.exe --smoke`) : 12/12.
+- `MailForge.exe --cli version` sur le binaire compile : la CLI est bien embarquee.
+- Archive CLI extraite dans un dossier vide, sans aucune dependance installee : `version`, `help`, `profiles list` et `tools password` fonctionnent (nodemailer n'est charge qu'au moment d'un envoi SMTP).
+- Interface parcourue vue par vue avec un pont simule : dashboard, compositeur, campagne, boites temporaires, redaction IA, outils (16), modeles, snippets, historique, journaux, parametres (6 onglets), palette de commandes.
+- Executable porte l'icone MailForge et les metadonnees `ProductName=MailForge`, `FileVersion=1.0.0`, `CompanyName=cameleonnbss`.
 
 ## Licence
 

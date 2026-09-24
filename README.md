@@ -117,17 +117,26 @@ npm run pack
 
 # 4. generer l'executable final (installeur NSIS + version portable)
 npm run dist
+
+# 5. produire aussi l'archive CLI (facultatif, inclus dans npm run release)
+npm run package:cli
+
+#    tout en une commande
+npm run release
 ```
 
 Artefacts produits dans `release/` :
 
-| Fichier | Description |
-|---|---|
-| `MailForge-Setup-1.0.0.exe` | Installeur Windows (choix du dossier, raccourci, desinstallation) |
-| `MailForge-1.0.0-portable.exe` | Executable autonome, sans installation |
-| `win-unpacked/MailForge.exe` | Version non compressee, utile pour debugger |
+| Fichier | Taille | Description |
+|---|---|---|
+| `MailForge-Setup-1.0.0.exe` | ~82 Mo | Installeur Windows (choix du dossier, raccourci, desinstallation) |
+| `MailForge-1.0.0-portable.exe` | ~82 Mo | Executable autonome, sans installation |
+| `MailForge-1.0.0-cli.zip` | ~48 Ko | Ligne de commande seule (Node >= 18), sans interface |
+| `win-unpacked/MailForge.exe` | ~180 Mo | Version non compressee, utile pour debugger |
 
-Les icones sont versionnees dans `build/`. Pour les regenerer : `npm run icons` (encodeur PNG/ICO ecrit a la main, aucune dependance image).
+> **Note de compilation Windows.** La chaine `npm run dist` est en trois temps : `pack` produit le dossier non installe, `brand` y applique l'icone et les metadonnees de version, puis `electron-builder --prepackaged` fabrique l'installeur et la version portable. Cette decomposition existe parce qu'electron-builder, sur une machine Windows sans mode developpeur active, ne peut pas extraire son propre outil de signature (l'archive contient des liens symboliques macOS, qui demandent un privilege administrateur). Le resultat est identique a la chaine standard, sans droits administrateur ni certificat de signature.
+
+Les icones sont versionnees dans `build/`. Pour les regenerer : `npm run icons` (encodeur PNG/ICO ecrit a la main, aucune dependance image : sept tailles PNG, un ICO multi-resolution, un SVG).
 
 ### Ligne de commande
 

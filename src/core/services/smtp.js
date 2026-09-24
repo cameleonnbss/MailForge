@@ -4,8 +4,20 @@
 'use strict';
 
 const { EventEmitter } = require('events');
-const nodemailer = require('nodemailer');
 const { getProtocol } = require('./apis');
+
+/* Loaded on demand: the tools, header analyser and temporary mailboxes work in
+   the CLI bundle even when nodemailer is not installed yet. */
+let nodemailerCache = null;
+function loadNodemailer() {
+  if (nodemailerCache) return nodemailerCache;
+  try {
+    nodemailerCache = require('nodemailer');
+  } catch {
+    throw new Error("Module 'nodemailer' absent. Installez-le (npm install) pour envoyer par SMTP.");
+  }
+  return nodemailerCache;
+}
 
 const MIN_THROTTLE_MS = 1000;
 
@@ -64,6 +76,7 @@ class Mailer extends EventEmitter {
   }
 
   buildTransport(profile) {
+    const nodemailer = loadNodemailer();
     const secure = profile.secure === true || Number(profile.port) === 465;
     const transport = nodemailer.createTransport({
       host: profile.host,

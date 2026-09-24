@@ -54,6 +54,9 @@ Premiere version publique. Application de bureau complete, executable Windows et
 - Serveur d'apercu local (`npm run preview`) permettant de revoir l'interface dans un navigateur avec des donnees de demonstration.
 - Generateur d'icones sans dependance (PNG multi-tailles, ICO, SVG) : `npm run icons`.
 - Configuration de compilation electron-builder : installeur NSIS, version portable, dossier non compresse.
+- Chaine de compilation explicite en trois temps (`npm run pack`, `npm run brand`, targets `--prepackaged`) : contourne l'impossibilite d'extraire l'outil de signature d'electron-builder sur une machine Windows sans mode developpeur, sans demander de droits administrateur ni de certificat. L'executable porte malgre tout l'icone et les metadonnees `ProductName`, `FileVersion`, `CompanyName`, `LegalCopyright`.
+- Archive `MailForge-<version>-cli.zip` generee par `npm run package:cli` : core partage + CLI + documentation, sans interface ni Electron.
+- `nodemailer` charge a la demande : la CLI fonctionne (outils, analyse d'en-tetes, boites temporaires, configuration) avant meme d'avoir installe une dependance.
 - Documentation : README bilingue, guide d'architecture, conditions d'usage (LEGAL.md), notes de version.
 
 ### Exclu volontairement
