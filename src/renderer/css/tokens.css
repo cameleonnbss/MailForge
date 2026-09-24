@@ -1,0 +1,151 @@
+/* language: CSS, file: src/renderer/css/tokens.css
+   Design tokens: dark-first surfaces, six accent presets, spacing and motion.
+   Every colour in the UI resolves from here, so theming is a variable swap. */
+
+:root {
+  color-scheme: dark;
+
+  /* surfaces */
+  --bg-0: #070a10;
+  --bg-1: #0b0f16;
+  --bg-2: #111722;
+  --bg-3: #161d2b;
+  --bg-4: #1d2534;
+  --glass: rgba(24, 32, 46, 0.6);
+  --glass-strong: rgba(15, 21, 32, 0.9);
+
+  /* lines */
+  --line: rgba(148, 163, 184, 0.13);
+  --line-strong: rgba(148, 163, 184, 0.26);
+  --line-accent: color-mix(in srgb, var(--accent) 45%, transparent);
+
+  /* text */
+  --text-1: #e9eef8;
+  --text-2: #a8b4c8;
+  --text-3: #74809a;
+  --text-inverse: #06090f;
+
+  /* semantic */
+  --ok: #34d399;
+  --ok-soft: rgba(52, 211, 153, 0.14);
+  --warn: #fbbf24;
+  --warn-soft: rgba(251, 191, 36, 0.14);
+  --error: #fb7185;
+  --error-soft: rgba(251, 113, 133, 0.14);
+  --info: #60a5fa;
+  --info-soft: rgba(96, 165, 250, 0.14);
+
+  /* accent defaults (overridden by [data-accent]) */
+  --accent: #7c8cff;
+  --accent-2: #a78bfa;
+  --accent-soft: rgba(124, 140, 255, 0.13);
+  --accent-glow: rgba(124, 140, 255, 0.34);
+  --accent-text: #c3caff;
+
+  /* radii */
+  --r-xs: 6px;
+  --r-sm: 9px;
+  --r-md: 13px;
+  --r-lg: 18px;
+  --r-xl: 26px;
+  --r-full: 999px;
+
+  /* spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 26px;
+  --s-7: 34px;
+  --s-8: 46px;
+
+  /* type */
+  --font: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  --fs-xs: 11.5px;
+  --fs-sm: 12.5px;
+  --fs-md: 13.5px;
+  --fs-lg: 15.5px;
+  --fs-xl: 19px;
+  --fs-2xl: 25px;
+  --fs-3xl: 32px;
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 110ms;
+  --t-mid: 200ms;
+  --t-slow: 380ms;
+
+  /* layout */
+  --titlebar-h: 40px;
+  --sidebar-w: 244px;
+  --shadow-1: 0 1px 2px rgba(2, 5, 10, 0.5);
+  --shadow-2: 0 10px 30px rgba(2, 5, 10, 0.45);
+  --shadow-3: 0 26px 60px rgba(2, 5, 10, 0.6);
+}
+
+[data-accent="indigo"] {
+  --accent: #7c8cff;
+  --accent-2: #a78bfa;
+  --accent-soft: rgba(124, 140, 255, 0.13);
+  --accent-glow: rgba(124, 140, 255, 0.34);
+  --accent-text: #c3caff;
+}
+[data-accent="emerald"] {
+  --accent: #34d399;
+  --accent-2: #22d3ee;
+  --accent-soft: rgba(52, 211, 153, 0.13);
+  --accent-glow: rgba(52, 211, 153, 0.3);
+  --accent-text: #a7f3d0;
+}
+[data-accent="cyan"] {
+  --accent: #38bdf8;
+  --accent-2: #818cf8;
+  --accent-soft: rgba(56, 189, 248, 0.13);
+  --accent-glow: rgba(56, 189, 248, 0.3);
+  --accent-text: #bae6fd;
+}
+[data-accent="amber"] {
+  --accent: #f59e0b;
+  --accent-2: #fb7185;
+  --accent-soft: rgba(245, 158, 11, 0.13);
+  --accent-glow: rgba(245, 158, 11, 0.3);
+  --accent-text: #fcd34d;
+}
+[data-accent="rose"] {
+  --accent: #fb7185;
+  --accent-2: #c084fc;
+  --accent-soft: rgba(251, 113, 133, 0.13);
+  --accent-glow: rgba(251, 113, 133, 0.3);
+  --accent-text: #fecdd3;
+}
+[data-accent="violet"] {
+  --accent: #a78bfa;
+  --accent-2: #f472b6;
+  --accent-soft: rgba(167, 139, 250, 0.14);
+  --accent-glow: rgba(167, 139, 250, 0.32);
+  --accent-text: #ddd6fe;
+}
+
+[data-density="compact"] {
+  --s-4: 12px;
+  --s-5: 15px;
+  --s-6: 20px;
+  --s-7: 26px;
+  --fs-md: 13px;
+  --fs-lg: 14.5px;
+}
+
+[data-animations="off"] * {
+  transition-duration: 1ms !important;
+  animation-duration: 1ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 40ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- language: HTML, file: src/renderer/index.html
+     MailForge interface. Frameless window: the chrome (titlebar + window
+     controls) is drawn here, and every script is a classic script so the app
+     needs no bundler. -->
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; form-action 'none'">
+    <title>MailForge</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/views.css">
+  </head>
+  <body>
+    <div id="titlebar" data-testid="titlebar"></div>
+    <div id="shell">
+      <nav id="sidebar" aria-label="Navigation principale"></nav>
+      <main id="main">
+        <div id="view-host"></div>
+      </main>
+    </div>
+    <div id="toasts" aria-live="polite" aria-atomic="false"></div>
+    <div id="modal-host" role="dialog" aria-modal="true"></div>
+
+    <!-- foundation -->
+    <script src="js/icons.js"></script>
+    <script src="js/mock.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/palette.js"></script>
+
+    <!-- views -->
+    <script src="js/views/dashboard.js"></script>
+    <script src="js/views/compose.js"></script>
+    <script src="js/views/campaign.js"></script>
+    <script src="js/views/tempmail.js"></script>
+    <script src="js/views/ai.js"></script>
+    <script src="js/views/tools.js"></script>
+    <script src="js/views/templates.js"></script>
+    <script src="js/views/snippets.js"></script>
+    <script src="js/views/history.js"></script>
+    <script src="js/views/logs.js"></script>
+    <script src="js/views/settings.js"></script>
+
+    <!-- boot -->
+    <script src="js/app.js"></script>
+  </body>
+</html>

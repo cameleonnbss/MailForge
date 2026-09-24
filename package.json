@@ -1,0 +1,75 @@
+{
+  "name": "mailforge",
+  "productName": "MailForge",
+  "version": "1.0.0",
+  "description": "Desktop email toolkit — SMTP composer, consent-based bulk sender, temporary mailboxes and a bench of everyday utilities.",
+  "main": "src/main/main.js",
+  "author": {
+    "name": "cameleonnbss",
+    "url": "https://github.com/cameleonnbss"
+  },
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "smoke": "electron . --smoke",
+    "cli": "node src/cli/index.js",
+    "preview": "node scripts/preview.js",
+    "icons": "node scripts/make-icons.js",
+    "pack": "electron-builder --win --dir",
+    "dist": "electron-builder --win",
+    "release": "electron-builder --win --publish never"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.16"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.cameleonnbss.mailforge",
+    "productName": "MailForge",
+    "copyright": "MIT Licensed — cameleonnbss",
+    "asar": true,
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "build/icon.ico",
+      "build/icon.png",
+      "package.json",
+      "README.md"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "MailForge-Setup-${version}.${ext}",
+      "shortcutName": "MailForge",
+      "uninstallDisplayName": "MailForge ${version}"
+    },
+    "portable": {
+      "artifactName": "MailForge-${version}-portable.${ext}"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+node_modules/
+release/
+dist/
+.freebuff/
+*.log
+mailforge.json
+.env
+.DS_Store
+Thumbs.db
