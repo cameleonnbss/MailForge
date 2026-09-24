@@ -134,7 +134,12 @@ Artefacts produits dans `release/` :
 | `MailForge-1.0.0-cli.zip` | ~48 Ko | Ligne de commande seule (Node >= 18), sans interface |
 | `win-unpacked/MailForge.exe` | ~180 Mo | Version non compressee, utile pour debugger |
 
-> **Note de compilation Windows.** La chaine `npm run dist` est en trois temps : `pack` produit le dossier non installe, `brand` y applique l'icone et les metadonnees de version, puis `electron-builder --prepackaged` fabrique l'installeur et la version portable. Cette decomposition existe parce qu'electron-builder, sur une machine Windows sans mode developpeur active, ne peut pas extraire son propre outil de signature (l'archive contient des liens symboliques macOS, qui demandent un privilege administrateur). Le resultat est identique a la chaine standard, sans droits administrateur ni certificat de signature.
+> **Note de compilation Windows.** `npm run dist` detecte une seule fois si le processus peut creer un lien symbolique, puis choisit sa chaine :
+>
+> - **liens symboliques disponibles** (mode developpeur active, session administrateur, runner CI) → chaine standard `electron-builder --win`, qui applique elle-meme icone et metadonnees ;
+> - **liens refuses** (machine Windows par defaut) → `--dir` sans edition de l'executable, puis application de l'icone et des metadonnees par rcedit, puis fabrication des cibles depuis le dossier deja package.
+>
+> Dans les deux cas le resultat est le meme — installeur, version portable, icone MailForge, `ProductName` / `FileVersion` / `CompanyName` — **sans droits administrateur et sans certificat de signature**. La raison de cette bifurcation : electron-builder extrait son propre outil de signature (`winCodeSign`), une archive qui contient des liens symboliques macOS ; sans ce privilege, l'extraction echoue et toute la compilation s'arrete. Le script `scripts/build.js` porte la logique, `scripts/brand-exe.js` l'application de l'icone.
 
 Les icones sont versionnees dans `build/`. Pour les regenerer : `npm run icons` (encodeur PNG/ICO ecrit a la main, aucune dependance image : sept tailles PNG, un ICO multi-resolution, un SVG).
 
