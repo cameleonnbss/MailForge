@@ -41,8 +41,15 @@ function canCreateSymlinks() {
   }
 }
 
+/* `--publish never` is deliberate: electron-builder would otherwise publish to
+   GitHub releases on its own during a tag build, which needs a token and would
+   race the release step in CI. Publishing is the workflow's job, not the
+   builder's. */
 function run(args) {
-  const result = spawnSync(process.execPath, [CLI, ...args], { cwd: ROOT, stdio: 'inherit' });
+  const result = spawnSync(process.execPath, [CLI, ...args, '--publish', 'never'], {
+    cwd: ROOT,
+    stdio: 'inherit'
+  });
   if (result.error) {
     process.stderr.write(`build: electron-builder injoignable (${result.error.message}). Lancez npm install.\n`);
     process.exit(1);
